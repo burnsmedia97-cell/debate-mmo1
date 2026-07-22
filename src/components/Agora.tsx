@@ -1,4 +1,12 @@
-function Agora() {
+import { buildings } from "../data/buildings";
+import BuildingCard from "./BuildingCard";
+
+
+type AgoraProps = {
+  onEnterBuilding: (buildingId: string) => void;
+};
+
+function Agora({ onEnterBuilding }: AgoraProps) {
   return (
     <main
       style={{
@@ -15,12 +23,35 @@ function Agora() {
 
       <h3>Buildings</h3>
 
-      <ul>
-        <li>🏛 Senate Hall</li>
-        <li>⚖️ Court of Appeals</li>
-        <li>📚 Library</li>
-        <li>🗳 Voting Plaza</li>
-      </ul>
+     <div
+  style={{
+    display: "grid",
+    gap: "16px",
+    marginTop: "20px",
+  }}
+>
+  {buildings.map((building) => (
+    <div
+      key={building.id}
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "10px",
+        padding: "16px",
+      }}
+    >
+      <h4>
+        {building.icon} {building.name}
+      </h4>
+
+      <p>{building.description}</p>
+
+      <button onClick={() => onEnterBuilding(building.id)}>
+  Enter
+</button>
+
+    </div>
+  ))}
+</div>
 
       <hr />
 
