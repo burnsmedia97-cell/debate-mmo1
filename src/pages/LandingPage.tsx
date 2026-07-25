@@ -10,7 +10,7 @@ function LandingPage({ onEnter }: LandingPageProps) {
         marginTop: "80px",
       }}
     >
-      <h2>Every civilization begins with a conversation.</h2>
+      <h2>This is the login / welcoming page </h2>
 
       <p>
         Debate ideas, shape your Agora, and influence the future of the world.

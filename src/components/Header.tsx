@@ -3,12 +3,13 @@ function Header() {
     <header
       style={{
         padding: "20px",
-        borderBottom: "1px solid #ddd",
+        borderBottom: "1px solid #ea1515",
       }}
     >
-      <h1>The Republic</h1>
+      <h1>Project Name To be determined</h1>
 
-      <p>A persistent world governed by its citizens.</p>
+      <p>A persistent world</p>
+      
     </header>
   );
 }

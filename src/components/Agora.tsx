@@ -31,26 +31,12 @@ function Agora({ onEnterBuilding }: AgoraProps) {
   }}
 >
   {buildings.map((building) => (
-    <div
-      key={building.id}
-      style={{
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        padding: "16px",
-      }}
-    >
-      <h4>
-        {building.icon} {building.name}
-      </h4>
-
-      <p>{building.description}</p>
-
-      <button onClick={() => onEnterBuilding(building.id)}>
-  Enter
-</button>
-
-    </div>
-  ))}
+  <BuildingCard
+    key={building.id}
+    building={building}
+    onEnter={onEnterBuilding}
+  />
+))}
 </div>
 
       <hr />
