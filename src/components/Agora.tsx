@@ -1,6 +1,5 @@
-import { buildings } from "../data/buildings";
-import BuildingCard from "./BuildingCard";
-
+import AgoraMap from "./AgoraMap";
+import LocationLayout from "./LocationLayout";
 
 type AgoraProps = {
   onEnterBuilding: (buildingId: string) => void;
@@ -8,36 +7,12 @@ type AgoraProps = {
 
 function Agora({ onEnterBuilding }: AgoraProps) {
   return (
-    <main
-      style={{
-        maxWidth: "900px",
-        margin: "40px auto",
-        padding: "20px",
-      }}
-    >
-      <h2>🏛 Central Agora</h2>
-
+    <LocationLayout title="🏛 Central Agora">
       <p>You arrive in the heart of the Republic.</p>
 
-      <hr />
+      <h3>Agora</h3>
 
-      <h3>Buildings</h3>
-
-     <div
-  style={{
-    display: "grid",
-    gap: "16px",
-    marginTop: "20px",
-  }}
->
-  {buildings.map((building) => (
-  <BuildingCard
-    key={building.id}
-    building={building}
-    onEnter={onEnterBuilding}
-  />
-))}
-</div>
+      <AgoraMap onEnter={onEnterBuilding} />
 
       <hr />
 
@@ -46,7 +21,7 @@ function Agora({ onEnterBuilding }: AgoraProps) {
       <p>Citizen #1 (You)</p>
 
       <p>No one else is here... yet.</p>
-    </main>
+    </LocationLayout>
   );
 }
 
