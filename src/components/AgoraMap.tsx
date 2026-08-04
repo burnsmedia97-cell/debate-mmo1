@@ -1,3 +1,10 @@
+import { useState } from "react";
+import "./AgoraMap.css";
+import { citizens } from "../data/citizens";
+import Citizen from "./Citizen";
+import Player from "./Player";
+import CitizenPanel from "./CitizenPanel";
+
 type BuildingPosition = {
   id: string;
   name: string;
@@ -42,71 +49,108 @@ type AgoraMapProps = {
 };
 
 function AgoraMap({ onEnter }: AgoraMapProps) {
-  return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "600px",
-        border: "2px solid #bbb",
-        borderRadius: "16px",
-        background:
-  "linear-gradient(to bottom, #b9dcff 0%, #dff1ff 30%, #ece5cb 30%, #e6ddbf 100%)",
-overflow: "hidden",
-      }}
-    >
+  const [playerPosition, setPlayerPosition] = useState({
+    x: "50%",
+    y: "58%",
+  });
+const [destination, setDestination] = useState({
+  x: "50%",
+  y: "58%",
+});
 
-      <div
-  style={{
-    position: "absolute",
-    top: "30px",
-    right: "40px",
-    fontSize: "48px",
-  }}
->
-  ☀️
-</div>
+const [selectedCitizen, setSelectedCitizen] =
+  useState<{
+    name: string;
+    emoji: string;
+  } | null>(null);
+
+  function handleMapClick(
+    event: React.MouseEvent<HTMLDivElement>
+  ) {
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    const x =
+      ((event.clientX - rect.left) / rect.width) * 100;
+
+    const y =
+      ((event.clientY - rect.top) / rect.height) * 100;
+
+    setDestination({
+  x: `${x}%`,
+  y: `${y}%`,
+});
+
+setPlayerPosition({
+  x: `${x}%`,
+  y: `${y}%`,
+});
+  }
+
+  return (
+    <div className="agora-map" onClick={handleMapClick}>
+      <div className="sun">☀️</div>
+
+      <div className="fountain">⛲</div>
+
       {positions.map((building) => (
         <button
           key={building.id}
-          onClick={() => onEnter(building.id)}
-         style={{
-  position: "absolute",
-  left: building.x,
-  top: building.y,
-  padding: "12px",
-  borderRadius: "12px",
-  border: "1px solid #999",
-  backgroundColor: "white",
-  cursor: "pointer",
-  minWidth: "120px",
-  boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
-}}
+          className="building"
+          onClick={(e) => {
+            e.stopPropagation();
+            onEnter(building.id);
+          }}
+          style={{
+            left: building.x,
+            top: building.y,
+          }}
         >
-          <div style={{ fontSize: "30px" }}>{building.icon}</div>
-          <div>{building.name}</div>
+          <div className="building-icon">
+            {building.icon}
+          </div>
+
+          <div className="building-name">
+            {building.name}
+          </div>
         </button>
       ))}
+
+      {citizens
+  .filter((citizen) => citizen.name !== "You")
+  .map((citizen) => (
+    <Citizen
+  key={citizen.id}
+  name={citizen.name}
+  emoji={citizen.emoji}
+  x={citizen.x}
+  y={citizen.y}
+  onSelect={(name, emoji) =>
+    setSelectedCitizen({ name, emoji })
+  }
+/>
+))}
+
 <div
+  className="destination-marker"
   style={{
-    position: "absolute",
-    left: "47%",
-    top: "34%",
-    fontSize: "42px",
+    left: destination.x,
+    top: destination.y,
   }}
 >
-  ⛲
+  ✨
 </div>
-      <div
-        style={{
-          position: "absolute",
-          left: "46%",
-          top: "50%",
-          fontSize: "36px",
-        }}
-      >
-        😊
-      </div>
+      <Player
+  x={playerPosition.x}
+  y={playerPosition.y}
+/>
+
+{selectedCitizen && (
+  <CitizenPanel
+    name={selectedCitizen.name}
+    emoji={selectedCitizen.emoji}
+    onClose={() => setSelectedCitizen(null)}
+  />
+)}
     </div>
   );
 }
