@@ -5,42 +5,35 @@ import Citizen from "./Citizen";
 import Player from "./Player";
 import CitizenPanel from "./CitizenPanel";
 
-type BuildingPosition = {
-  id: string;
-  name: string;
-  icon: string;
-  x: string;
-  y: string;
-};
 
-const positions: BuildingPosition[] = [
+const positions = [
   {
     id: "senate",
     name: "Senate Hall",
     icon: "🏛",
-    x: "42%",
+    x: "48%",
     y: "8%",
   },
   {
     id: "library",
     name: "Library",
     icon: "📚",
-    x: "10%",
-    y: "35%",
+    x: "8%",
+    y: "42%",
   },
   {
     id: "court",
     name: "Court",
     icon: "⚖️",
-    x: "72%",
-    y: "35%",
+    x: "82%",
+    y: "42%",
   },
   {
     id: "plaza",
     name: "Voting Plaza",
     icon: "🗳",
-    x: "40%",
-    y: "72%",
+    x: "48%",
+    y: "82%",
   },
 ];
 

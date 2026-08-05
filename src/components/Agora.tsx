@@ -1,4 +1,4 @@
-import AgoraMap from "./AgoraMap";
+import World from "./World";
 import LocationLayout from "./LocationLayout";
 
 type AgoraProps = {
@@ -12,7 +12,17 @@ function Agora({ onEnterBuilding }: AgoraProps) {
 
       <h3>Agora</h3>
 
-      <AgoraMap onEnter={onEnterBuilding} />
+      <div
+  style={{
+    width: "100%",
+    height: "650px",
+    overflow: "auto",
+    borderRadius: "18px",
+    border: "2px solid #999",
+  }}
+>
+  <World onEnterBuilding={onEnterBuilding} />
+</div>
 
       <hr />
 
