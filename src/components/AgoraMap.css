@@ -8,14 +8,6 @@
   border-radius: 18px;
   overflow: hidden;
 
-  background:
-    linear-gradient(
-      to bottom,
-      #9fd3ff 0%,
-      #dff2ff 28%,
-      #e9dfc5 28%,
-      #dfd3b1 100%
-    );
 }
 
 /* Buildings */
@@ -88,6 +80,22 @@
   transform: translateX(-50%);
 
   font-size: 46px;
+}
+
+/* Decorations */
+
+.decoration {
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+
+  font-size: 34px;
+
+  pointer-events: none;
+
+  user-select: none;
+
+  z-index: 5;
 }
 
 /* Player */

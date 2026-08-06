@@ -4,7 +4,8 @@ import { citizens } from "../data/citizens";
 import Citizen from "./Citizen";
 import Player from "./Player";
 import CitizenPanel from "./CitizenPanel";
-
+import Decoration from "./Decoration";
+import { decorations } from "../data/environment";
 
 const positions = [
   {
@@ -38,10 +39,14 @@ const positions = [
 ];
 
 type AgoraMapProps = {
-  onEnter: (buildingId: string) => void;
+   onEnter: (buildingId: string) => void;
+  timeOfDay: string;
 };
 
-function AgoraMap({ onEnter }: AgoraMapProps) {
+function AgoraMap({
+  onEnter,
+  timeOfDay,
+}: AgoraMapProps) {
   const [playerPosition, setPlayerPosition] = useState({
     x: "50%",
     y: "58%",
@@ -79,11 +84,42 @@ setPlayerPosition({
 });
   }
 
+const skyColors = {
+  Morning:
+    "linear-gradient(to bottom, #9fd3ff 0%, #dff2ff 28%, #e9dfc5 28%, #dfd3b1 100%)",
+
+  Afternoon:
+    "linear-gradient(to bottom, #79c3ff 0%, #c9ebff 28%, #e9dfc5 28%, #dfd3b1 100%)",
+
+  Evening:
+    "linear-gradient(to bottom, #ffb45f 0%, #ffd79a 28%, #e9dfc5 28%, #dfd3b1 100%)",
+
+  Night:
+    "linear-gradient(to bottom, #1d2d5a 0%, #3d507f 28%, #55514d 28%, #4d493d 100%)",
+} as const;
+
+console.log("AgoraMap timeOfDay:", timeOfDay);
+
   return (
-    <div className="agora-map" onClick={handleMapClick}>
+    <div
+  className="agora-map"
+  onClick={handleMapClick}
+  style={{
+    background: skyColors[timeOfDay as keyof typeof skyColors],
+  }}
+>
       <div className="sun">☀️</div>
 
       <div className="fountain">⛲</div>
+
+{decorations.map((item) => (
+  <Decoration
+    key={item.id}
+    emoji={item.emoji}
+    x={item.x}
+    y={item.y}
+  />
+))}
 
       {positions.map((building) => (
         <button
